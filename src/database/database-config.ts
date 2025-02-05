@@ -7,6 +7,7 @@ import {
   DB_USERNAME,
 } from "../configs/server-config";
 import Sequelize from "sequelize";
+import userModel from "./models/user-model";
 
 const sequelize = new Sequelize.Sequelize(
   DB_NAME as string,
@@ -28,6 +29,7 @@ const sequelize = new Sequelize.Sequelize(
 );
 
 export const DB = {
-  sequelize,
   Sequelize,
+  sequelize,
+  User: userModel(sequelize),
 };
