@@ -21,8 +21,9 @@
       "strict": true,
       "resolveJsonModule": true,
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "allowJs": true
   },
-  "include": ["src/**/*.ts", "src/database/models/index.ts"],
+  "include": ["src/**/*.ts", "src/database/models/index.ts", "src/database/config/config.js", "src/database/migrations/20250206172744-update-user-nullable-fields.js"],
   "exclude": ["node_modules"]
 }

@@ -16,8 +16,8 @@ class User
   public userName!: string;
   public email!: string;
   public jobDescription!: string | null;
-  public experience!: number;
-  public techStack!: string[];
+  public experience!: number | null;
+  public techStack!: string[] | null;
   public password!: string | null;
   public readonly createdAt?: Date;
   public readonly updatedAt?: Date;
@@ -29,7 +29,7 @@ export default function (sequelize: Sequelize) {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
       },
       firstName: {
         type: DataTypes.STRING,
@@ -56,20 +56,22 @@ export default function (sequelize: Sequelize) {
       jobDescription: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue: null,
       },
       experience: {
         type: DataTypes.SMALLINT,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 0,
       },
       techStack: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
         defaultValue: [],
       },
       password: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue: null,
       },
     },
     {

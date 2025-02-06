@@ -5,8 +5,8 @@ export interface IUserAtters {
   userName: string;
   email: string;
   jobDescription: string | null;
-  experience: number;
-  techStack: string[];
+  experience: number | null;
+  techStack: string[] | null;
   password?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
