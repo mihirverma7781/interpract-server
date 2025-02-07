@@ -1,6 +1,7 @@
 import { Sequelize, DataTypes, Model, Optional } from "sequelize";
 import { generateUsername } from "unique-username-generator";
 import { IUserAtters } from "interfaces/user.interface";
+import { randomUUID } from "crypto";
 
 // Define the creation attributes (excluding ID and timestamps which are auto-generated)
 interface UserCreationAttributes
@@ -29,7 +30,7 @@ export default function (sequelize: Sequelize) {
       id: {
         type: DataTypes.UUID,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: randomUUID(),
       },
       firstName: {
         type: DataTypes.STRING,
@@ -43,10 +44,6 @@ export default function (sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-        validate: {
-          isAlphanumeric: true,
-          len: [3, 20],
-        },
       },
       email: {
         type: DataTypes.STRING,

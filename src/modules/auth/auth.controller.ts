@@ -33,7 +33,7 @@ export const googleLoginController = async (req: Request, res: Response) => {
       `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleResponse?.tokens?.access_token}`
     );
     const { email, name, picture } = googleAccountData.data;
-    const nameSplit = name.split();
+    const nameSplit = name.split(" ");
     let userInput: IGoogleResponse = {
       firstName: nameSplit[0],
       lastName: nameSplit[nameSplit.length - 1],
@@ -47,8 +47,7 @@ export const googleLoginController = async (req: Request, res: Response) => {
           email: userInput.email,
           userName: userExists.userName,
         },
-        JSON.stringify(JWT_ACCESS_TOKEN_SECRET),
-        { expiresIn: Number(JWT_TIMEOUT) }
+        JSON.stringify(JWT_ACCESS_TOKEN_SECRET)
       );
       req.session = {
         access_token: accessToken,
@@ -61,11 +60,10 @@ export const googleLoginController = async (req: Request, res: Response) => {
       const createdUser = await createNewUserRepo(userInput);
       const accessToken = JWT.sign(
         {
-          email: userInput.email,
+          email: createdUser.email,
           userName: createdUser.userName,
         },
-        JSON.stringify(JWT_ACCESS_TOKEN_SECRET),
-        { expiresIn: Number(JWT_TIMEOUT) }
+        JSON.stringify(JWT_ACCESS_TOKEN_SECRET)
       );
       req.session = {
         access_token: accessToken,

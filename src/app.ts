@@ -13,6 +13,7 @@ const app = express();
 const corsOptions = {
   origin: "*",
   optionsSuccessStatus: 200,
+  credentials: true,
 };
 
 // Enable CORS
@@ -26,7 +27,9 @@ app.use(responseTimings);
 app.use(
   cookieSession({
     signed: false,
-    secure: NODE_ENV !== "test",
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    sameSite: "lax",
   })
 );
 
