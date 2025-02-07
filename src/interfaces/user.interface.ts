@@ -11,3 +11,9 @@ export interface IUserAtters {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface IGoogleResponse {
+  firstName: string;
+  lastName: string;
+  email: string;
+}

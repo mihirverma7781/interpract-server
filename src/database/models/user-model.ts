@@ -79,11 +79,8 @@ export default function (sequelize: Sequelize) {
       modelName: "User",
       timestamps: true,
       underscored: true,
-      hooks: {
-        beforeCreate: async (user) => {
-          user.userName = generateUsername("-");
-        },
-      },
     }
   );
+
+  return User;
 }
