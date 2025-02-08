@@ -5,7 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 
 // Define the creation attributes (excluding ID and timestamps which are auto-generated)
 interface UserCreationAttributes
-  extends Optional<IUserAtters, "id" | "createdAt" | "updatedAt"> {}
+  extends Optional<
+    IUserAtters,
+    "id" | "createdAt" | "updatedAt" | "onboarded"
+  > {}
 
 class User
   extends Model<IUserAtters, UserCreationAttributes>
@@ -16,6 +19,7 @@ class User
   public lastName!: string;
   public userName!: string;
   public email!: string;
+  public onboarded!: boolean;
   public jobDescription!: string | null;
   public experience!: number | null;
   public techStack!: string[] | null;
@@ -50,6 +54,11 @@ export default function (sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+      },
+      onboarded: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       jobDescription: {
         type: DataTypes.STRING,

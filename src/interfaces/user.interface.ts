@@ -4,6 +4,7 @@ export interface IUserAtters {
   lastName: string;
   userName: string;
   email: string;
+  onboarded: boolean;
   jobDescription: string | null;
   experience: number | null;
   techStack: string[] | null;

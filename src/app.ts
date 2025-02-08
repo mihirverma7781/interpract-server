@@ -44,7 +44,7 @@ app.get("/api/health-check", (req: Request, res: Response) => {
 // api middlewares
 app.use("/api/auth", authRouter);
 
-app.get("*", async () => {
+app.all("*", async (req: Request, res: Response) => {
   throw new NotFoundError();
 });
 
