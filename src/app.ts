@@ -11,9 +11,10 @@ import authRouter from "./modules/auth/auth.route";
 
 const app = express();
 const corsOptions = {
-  origin: "*",
-  optionsSuccessStatus: 200,
-  credentials: true,
+  origin: "http://localhost:4000", // Allow only your frontend
+  credentials: true, // Allow cookies & authentication headers
+  methods: ["GET", "POST", "PUT", "DELETE"], // Allow specific methods
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Enable CORS

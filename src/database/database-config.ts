@@ -21,10 +21,6 @@ const sequelize = new Sequelize.Sequelize(
       charset: "utf8mb4",
       underscored: true,
     },
-    pool: {
-      min: 0,
-      max: 5,
-    },
   }
 );
 
