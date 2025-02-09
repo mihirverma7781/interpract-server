@@ -30,7 +30,7 @@ export const googleLoginController = async (req: Request, res: Response) => {
     oauth2client.setCredentials(googleResponse.tokens);
 
     const googleAccountData = await axios.get(
-      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleResponse?.tokens?.access_token}`
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleResponse?.tokens?.access_token}`,
     );
     const { email, name, picture } = googleAccountData.data;
     const nameSplit = name.split(" ");
@@ -40,14 +40,14 @@ export const googleLoginController = async (req: Request, res: Response) => {
       email: email,
     };
 
-    const userExists = await getUserByEmailRepo(userInput);
+    const userExists = await getUserByEmailRepo(userInput.email);
     if (userExists) {
       const accessToken = JWT.sign(
         {
           email: userInput.email,
           userName: userExists.userName,
         },
-        JSON.stringify(JWT_ACCESS_TOKEN_SECRET)
+        JSON.stringify(JWT_ACCESS_TOKEN_SECRET),
       );
       req.session = {
         access_token: accessToken,
@@ -63,7 +63,7 @@ export const googleLoginController = async (req: Request, res: Response) => {
           email: createdUser.email,
           userName: createdUser.userName,
         },
-        JSON.stringify(JWT_ACCESS_TOKEN_SECRET)
+        JSON.stringify(JWT_ACCESS_TOKEN_SECRET),
       );
       req.session = {
         access_token: accessToken,

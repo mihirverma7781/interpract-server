@@ -8,6 +8,7 @@ import { errorHandler } from "./middlewares/error-handler";
 import { responseTimings } from "./middlewares/api-respose";
 import RootRouter from "./router/routes";
 import authRouter from "./modules/auth/auth.route";
+import userRouter from "./modules/user/user.route";
 
 const app = express();
 const corsOptions = {
@@ -31,7 +32,7 @@ app.use(
     secure: process.env.NODE_ENV === "production",
     httpOnly: true,
     sameSite: "lax",
-  })
+  }),
 );
 
 // Server healthcheck
@@ -43,6 +44,7 @@ app.get("/api/health-check", (req: Request, res: Response) => {
 
 // api middlewares
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 app.all("*", async (req: Request, res: Response) => {
   throw new NotFoundError();

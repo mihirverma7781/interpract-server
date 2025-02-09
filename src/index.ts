@@ -8,7 +8,7 @@ const startServer = async () => {
   try {
     const databaseInstance = Database.getInstance();
     await databaseInstance.connectDatabase();
-    await databaseInstance.syncDatabase(DB.sequelize);
+    // await databaseInstance.syncDatabase(DB.sequelize);
 
     app.listen(PORT, () => {
       console.log(`Server Listening on ${PORT}`);

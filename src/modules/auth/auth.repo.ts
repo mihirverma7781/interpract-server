@@ -3,10 +3,10 @@ import { DB } from "../../database/database-config";
 import { BadRequestError } from "../../errors/bad-request-error";
 import { generateUsername } from "unique-username-generator";
 
-export const getUserByEmailRepo = async (userInput: IGoogleResponse) => {
+export const getUserByEmailRepo = async (email: string) => {
   try {
     const userExists = await DB.User.findOne({
-      where: { email: userInput?.email },
+      where: { email: email },
     });
     return userExists;
   } catch (error: any) {
