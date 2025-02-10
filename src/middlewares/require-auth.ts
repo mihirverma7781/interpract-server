@@ -3,6 +3,7 @@ import { UnauthorizedError } from "../errors/unauthorized-error";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { getUserByEmailRepo } from "../modules/auth/auth.repo";
+import { IUserAtters } from "interfaces/user.interface";
 
 interface IUserPayload {
   userName: string;
@@ -12,7 +13,7 @@ interface IUserPayload {
 declare global {
   namespace Express {
     interface Request {
-      currentUser?: IUserPayload;
+      currentUser?: IUserAtters;
     }
   }
 }
