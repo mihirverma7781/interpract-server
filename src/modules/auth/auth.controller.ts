@@ -32,12 +32,14 @@ export const googleLoginController = async (req: Request, res: Response) => {
     const googleAccountData = await axios.get(
       `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${googleResponse?.tokens?.access_token}`,
     );
+
     const { email, name, picture } = googleAccountData.data;
     const nameSplit = name.split(" ");
     let userInput: IGoogleResponse = {
       firstName: nameSplit[0],
       lastName: nameSplit[nameSplit.length - 1],
       email: email,
+      profileImage: picture as string,
     };
 
     const userExists = await getUserByEmailRepo(userInput.email);

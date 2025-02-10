@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 interface UserCreationAttributes
   extends Optional<
     IUserAtters,
-    "id" | "createdAt" | "updatedAt" | "onboarded"
+    "id" | "createdAt" | "updatedAt" | "onboarded" | "profileImage"
   > {}
 
 class User
@@ -19,6 +19,7 @@ class User
   public lastName!: string;
   public userName!: string;
   public email!: string;
+  public profileImage!: string;
   public onboarded!: boolean;
   public jobDescription!: string | null;
   public experience!: number | null;
@@ -60,6 +61,11 @@ export default function (sequelize: Sequelize) {
         allowNull: false,
         defaultValue: false,
       },
+      profileImage: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        defaultValue: null,
+      },
       jobDescription: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -86,7 +92,7 @@ export default function (sequelize: Sequelize) {
       modelName: "User",
       timestamps: true,
       underscored: true,
-    }
+    },
   );
 
   return User;

@@ -8,6 +8,7 @@ export interface IUserAtters {
   jobDescription: string | null;
   experience: number | null;
   techStack: string[] | null;
+  profileImage: string | null;
   password?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
@@ -17,4 +18,5 @@ export interface IGoogleResponse {
   firstName: string;
   lastName: string;
   email: string;
+  profileImage: string | null;
 }
