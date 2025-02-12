@@ -13,9 +13,9 @@ import interviewRouter from "./modules/interview/interview.route";
 
 const app = express();
 const corsOptions = {
-  origin: "http://localhost:4000", // Allow only your frontend
+  origin: "http://localhost:4000",
   credentials: true, // Allow cookies & authentication headers
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allow specific methods
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
