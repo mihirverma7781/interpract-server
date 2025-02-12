@@ -17,4 +17,5 @@ export const {
   DB_DIALECT,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
+  GEMINI_API_KEY,
 } = process.env;

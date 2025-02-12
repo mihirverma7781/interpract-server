@@ -1,8 +1,7 @@
 import { Sequelize, DataTypes, Model, Optional, UUIDV4, UUID } from "sequelize";
 import { generateUsername } from "unique-username-generator";
 import { IUserAtters } from "interfaces/user.interface";
-import { v4 as uuidv4 } from "uuid";
-
+import Interview from "./interview-model";
 // Define the creation attributes (excluding ID and timestamps which are auto-generated)
 interface UserCreationAttributes
   extends Optional<

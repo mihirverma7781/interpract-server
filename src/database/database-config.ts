@@ -8,6 +8,7 @@ import {
 } from "../configs/server-config";
 import Sequelize from "sequelize";
 import userModel from "./models/user-model";
+import interviewModel from "./models/interview-model";
 
 const sequelize = new Sequelize.Sequelize(
   DB_NAME as string,
@@ -21,11 +22,24 @@ const sequelize = new Sequelize.Sequelize(
       charset: "utf8mb4",
       underscored: true,
     },
-  }
+  },
 );
+
+// Initialize models
+const User = userModel(sequelize);
+const Interview = interviewModel(sequelize);
+
+// Define associations after models are initialized
+User.hasMany(Interview, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+
+Interview.belongsTo(User);
 
 export const DB = {
   Sequelize,
   sequelize,
   User: userModel(sequelize),
+  Interview: interviewModel(sequelize),
 };

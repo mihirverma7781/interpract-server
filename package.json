@@ -23,6 +23,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "axios": "^1.7.9",
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
