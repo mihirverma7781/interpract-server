@@ -5,7 +5,11 @@ import {
   IInterviewInput,
 } from "../../interfaces/gemni.interface";
 import { chatSession } from "../../utils/generative-ai";
-import { createInterviewRepo } from "./interview.repo";
+import {
+  createInterviewRepo,
+  getAllInterviewsRepo,
+  getInterviewByIdRepo,
+} from "./interview.repo";
 
 export const createInterviewController = async (
   req: Request,
@@ -26,7 +30,6 @@ export const createInterviewController = async (
     const formattedResponse = JSON.parse(
       gemniResponse.response.text().replace("```json", "").replace("```", ""),
     );
-    console.log("formatted Response:", formattedResponse);
 
     // Save the interview in the database
     const interviewInput: any = {
@@ -43,6 +46,37 @@ export const createInterviewController = async (
     return res.status(201).json({
       message: "Successfully initialized the interview",
       data: createdInterview,
+    });
+  } catch (error) {
+    throw new BadRequestError("Server error");
+  }
+};
+
+export const getAllInterviewsController = async (
+  req: Request,
+  res: Response,
+) => {
+  try {
+    const userId = req.currentUser?.id!;
+    const allInterviews = await getAllInterviewsRepo(userId);
+    return res.status(200).json({
+      message: "Successfully fetched all interviews",
+      data: allInterviews,
+    });
+  } catch (error) {
+    throw new BadRequestError("Server error");
+  }
+};
+
+export const getInterviewController = async (req: Request, res: Response) => {
+  try {
+    const userId: string = req.currentUser?.id!;
+    const interviewId: string = req.params?.id!;
+
+    const interviewResponse = await getInterviewByIdRepo(userId, interviewId);
+    return res.status(201).json({
+      message: "Successfully fetched interview",
+      data: interviewResponse,
     });
   } catch (error) {
     throw new BadRequestError("Server error");
