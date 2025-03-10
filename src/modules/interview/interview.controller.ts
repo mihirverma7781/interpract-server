@@ -27,8 +27,13 @@ export const createInterviewController = async (
 
     const inputPrompt = `Company: ${company}, Job Description: ${jobDescription}, Tech Stack: ${techStack}, Experience: ${experience}, Difficulty: ${difficulty}. With this information prepare a tech interview with 20 questions and answers in json format make question, answer and id as a key in that JSON.`;
     const gemniResponse = await chatSession.sendMessage(inputPrompt);
+
     const formattedResponse = JSON.parse(
-      gemniResponse.response.text().replace("```json", "").replace("```", ""),
+      gemniResponse.response
+        .text()
+        .replace("```json", "")
+        .replace("```", "")
+        .trim(),
     );
 
     // Save the interview in the database
@@ -47,8 +52,9 @@ export const createInterviewController = async (
       message: "Successfully initialized the interview",
       data: createdInterview,
     });
-  } catch (error) {
-    throw new BadRequestError("Server error");
+  } catch (error: any) {
+    console.log("Server Error: ", error.message);
+    throw new BadRequestError(error.message || "Server error");
   }
 };
 

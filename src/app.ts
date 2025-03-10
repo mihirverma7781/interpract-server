@@ -10,6 +10,7 @@ import RootRouter from "./router/routes";
 import authRouter from "./modules/auth/auth.route";
 import userRouter from "./modules/user/user.route";
 import interviewRouter from "./modules/interview/interview.route";
+import answerRouter from "./modules/answer/answer.route";
 
 const app = express();
 const corsOptions = {
@@ -47,6 +48,7 @@ app.get("/api/health-check", (req: Request, res: Response) => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/interview", interviewRouter);
+app.use("/api/answer", answerRouter);
 
 app.all("*", async (req: Request, res: Response) => {
   throw new NotFoundError();

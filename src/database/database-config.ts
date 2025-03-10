@@ -9,6 +9,7 @@ import {
 import Sequelize from "sequelize";
 import userModel from "./models/user-model";
 import interviewModel from "./models/interview-model";
+import answerModel from "./models/answer-model";
 
 const sequelize = new Sequelize.Sequelize(
   DB_NAME as string,
@@ -28,6 +29,7 @@ const sequelize = new Sequelize.Sequelize(
 // Initialize models
 const User = userModel(sequelize);
 const Interview = interviewModel(sequelize);
+const Answer = answerModel(sequelize);
 
 // Define associations after models are initialized
 User.hasMany(Interview, {
@@ -35,11 +37,24 @@ User.hasMany(Interview, {
   onDelete: "CASCADE",
 });
 
+User.hasMany(Answer, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+
+Interview.hasMany(Answer, {
+  foreignKey: "interviewId",
+  onDelete: "CASCADE",
+});
+
 Interview.belongsTo(User);
+Answer.belongsTo(User);
+Answer.belongsTo(Interview);
 
 export const DB = {
   Sequelize,
   sequelize,
   User: userModel(sequelize),
   Interview: interviewModel(sequelize),
+  Answer: answerModel(sequelize),
 };
