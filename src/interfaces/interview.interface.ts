@@ -7,6 +7,9 @@ export interface IInterviewAtters {
   content: string | null;
   company?: string | null;
   userId: string;
+  startTime?: Date | null;
+  endTime?: Date | null;
+  attempted: Boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

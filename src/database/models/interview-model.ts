@@ -5,13 +5,12 @@ import User from "./user-model"; // Import the User model
 interface InterviewCreationAttributes
   extends Optional<
     IInterviewAtters,
-    "id" | "createdAt" | "updatedAt" | "company"
-  > {}
+    "id" | "createdAt" | "updatedAt"
+  > { }
 
 class Interview
   extends Model<IInterviewAtters, InterviewCreationAttributes>
-  implements IInterviewAtters
-{
+  implements IInterviewAtters {
   public id!: string;
   public experience!: number;
   public jobDescription!: string;
@@ -19,6 +18,9 @@ class Interview
   public difficulty!: string;
   public company!: string | null;
   public content!: string | null;
+  public startTime?: Date | null;
+  public endTime?: Date | null;
+  public attempted!: Boolean;
   public userId!: string; // Foreign key to User model
   public readonly createdAt?: Date;
   public readonly updatedAt?: Date;
@@ -59,6 +61,21 @@ export default function (sequelize: Sequelize) {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: null,
+      },
+      startTime: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null,
+      },
+      endTime: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null,
+      },
+      attempted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       userId: {
         type: DataTypes.UUID,

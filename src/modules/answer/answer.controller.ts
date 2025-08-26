@@ -25,7 +25,7 @@ export const saveAnswerController = async (req: Request, res: Response) => {
         .replace("```", "")
         .trim(),
     );
-    console.log("formattedResponse", formattedResponse);
+
     if (
       !formattedResponse ||
       !formattedResponse?.feedback ||
