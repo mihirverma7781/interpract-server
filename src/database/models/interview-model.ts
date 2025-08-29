@@ -18,8 +18,7 @@ class Interview
   public difficulty!: string;
   public company!: string | null;
   public content!: string | null;
-  public startTime?: Date | null;
-  public endTime?: Date | null;
+  public timeTaken!: number | null;
   public attempted!: Boolean;
   public userId!: string; // Foreign key to User model
   public readonly createdAt?: Date;
@@ -62,20 +61,15 @@ export default function (sequelize: Sequelize) {
         allowNull: true,
         defaultValue: null,
       },
-      startTime: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null,
-      },
-      endTime: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: null,
-      },
       attempted: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      timeTaken: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 0,
       },
       userId: {
         type: DataTypes.UUID,

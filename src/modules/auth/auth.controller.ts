@@ -84,3 +84,17 @@ export const googleLoginController = async (req: Request, res: Response) => {
     throw new BadRequestError(error);
   }
 };
+
+
+export const logoutController = async (req: Request, res: Response) => {
+  try {
+    req.session = null;
+     return res.status(200).json({
+        message: "User logged out successfully",
+        data: true,
+      });
+  } catch (error: any) {
+    console.log("error: " + JSON.stringify(error));
+    throw new BadRequestError(error);
+  }
+}

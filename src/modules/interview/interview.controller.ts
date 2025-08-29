@@ -9,11 +9,12 @@ import {
   createInterviewRepo,
   getAllInterviewsRepo,
   getInterviewByIdRepo,
+  updateInterviewDurationRepo,
 } from "./interview.repo";
 
 export const createInterviewController = async (
   req: Request,
-  res: Response,
+  res: Response
 ) => {
   try {
     const {
@@ -33,7 +34,7 @@ export const createInterviewController = async (
         .text()
         .replace("```json", "")
         .replace("```", "")
-        .trim(),
+        .trim()
     );
 
     // Save the interview in the database
@@ -58,9 +59,29 @@ export const createInterviewController = async (
   }
 };
 
+export const updateDurationController = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const userId = req.currentUser?.id!;
+    const interviewId: string = req.params?.id!;
+    const updatedData = await updateInterviewDurationRepo(userId, interviewId, {
+      timeTaken: req.body.timeTaken,
+      attempted: req.body.attempted
+    })
+    return res.status(200).json({
+      message: "Successfully updated interview duration",
+      data: updatedData,
+    });
+  } catch (error) {
+    throw new BadRequestError("Server error");
+  }
+};
+
 export const getAllInterviewsController = async (
   req: Request,
-  res: Response,
+  res: Response
 ) => {
   try {
     const userId = req.currentUser?.id!;

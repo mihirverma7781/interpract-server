@@ -26,3 +26,17 @@ export const createInterviewValidator = () => {
     body("company").trim(),
   ];
 };
+
+export const updateDurationValidator = () => {
+  return [
+    body("timeTaken")
+      .trim()
+      .isNumeric()
+      .exists()
+      .withMessage("time is required"),
+    body("attempted")
+      .isBoolean()
+      .exists()
+      .withMessage("attempted data invalid"),
+  ];
+};

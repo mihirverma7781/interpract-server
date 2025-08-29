@@ -45,3 +45,18 @@ export const getInterviewByIdRepo = async (
     throw new BadRequestError("API error: " + error.message);
   }
 };
+
+export const updateInterviewDurationRepo = async (userId: string, interviewId: string, data: any) => {
+  try {
+    const interview = await DB.Interview.update(data, {
+      where: {
+        userId: userId,
+        id: interviewId,
+      },
+    });
+
+    return interview;
+  } catch (error: any) {
+    throw new BadRequestError("API error: " + error.message);
+  }
+}
