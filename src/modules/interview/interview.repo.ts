@@ -1,6 +1,7 @@
 import { IInterviewInput } from "../../interfaces/gemni.interface";
 import { DB } from "../../database/database-config";
 import { BadRequestError } from "../../errors/bad-request-error";
+import { Sequelize } from "sequelize";
 
 export const createInterviewRepo = async (interviewInput: any) => {
   try {
@@ -48,7 +49,10 @@ export const getInterviewByIdRepo = async (
 
 export const updateInterviewDurationRepo = async (userId: string, interviewId: string, data: any) => {
   try {
-    const interview = await DB.Interview.update(data, {
+    const interview = await DB.Interview.update({
+      timeTaken: Sequelize.literal(`time_taken + ${data.timeTaken}`),
+      attempted: data.attempted
+    }, {
       where: {
         userId: userId,
         id: interviewId,
